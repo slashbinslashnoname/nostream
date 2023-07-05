@@ -53,3 +53,7 @@ export const EventDelegatorMetadataKey = Symbol('Delegator')
 export const EventDeduplicationMetadataKey = Symbol('Deduplication')
 export const ContextMetadataKey = Symbol('Context')
 export const EventExpirationTimeMetadataKey = Symbol('Expiration')
+export const CensoredWords = [
+  "Bitcoin",
+  "Perche à selfie"
+];
