@@ -1,6 +1,6 @@
 import { Event, ExpiringEvent  } from '../@types/event'
 import { EventRateLimit, FeeSchedule, Settings } from '../@types/settings'
-import { getEventExpiration, getEventProofOfWork, getPubkeyProofOfWork, getPublicKey, getRelayPrivateKey, isEventIdValid, isEventKindOrRangeMatch, isEventSignatureValid, isExpiredEvent } from '../utils/event'
+import { getEventExpiration, getEventProofOfWork, getPubkeyProofOfWork, getPublicKey, getRelayPrivateKey, isEventIdValid, isEventContentValid, isEventKindOrRangeMatch, isEventSignatureValid, isExpiredEvent } from '../utils/event'
 import { IEventStrategy, IMessageHandler } from '../@types/message-handlers'
 import { ContextMetadataKey } from '../constants/base'
 import { createCommandResult } from '../utils/messages'
@@ -189,6 +189,9 @@ export class EventMessageHandler implements IMessageHandler {
     }
     if (!await isEventSignatureValid(event)) {
       return 'invalid: event signature verification failed'
+    }
+    if (!await isEventContentValid(event)) {
+      return 'invalid: event content is bullshit'
     }
   }
 
