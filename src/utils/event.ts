@@ -4,7 +4,7 @@ import { applySpec, converge, curry, mergeLeft, nth, omit, pipe, prop, reduceBy 
 import { CanonicalEvent, DBEvent, Event, UnidentifiedEvent, UnsignedEvent } from '../@types/event'
 import { createCipheriv, getRandomValues } from 'crypto'
 import { EventId, Pubkey, Tag } from '../@types/base'
-import { EventKinds, EventTags } from '../constants/base'
+import { EventKinds, EventTags, CensoredWords } from '../constants/base'
 
 import cluster from 'cluster'
 import { deriveFromSecret } from './secret'
@@ -165,6 +165,10 @@ export const getEventHash = async (event: Event | UnidentifiedEvent | UnsignedEv
   const id = await secp256k1.utils.sha256(Buffer.from(JSON.stringify(serializeEvent(event))))
 
   return Buffer.from(id).toString('hex')
+}
+
+export const isEventContentValid = async (event: Event): Promise<boolean> => {
+  return CensoredWords.some(v => event.content.includes(v))
 }
 
 export const isEventIdValid = async (event: Event): Promise<boolean> => {
