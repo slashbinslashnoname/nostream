@@ -144,7 +144,7 @@ export class EventMessageHandler implements IMessageHandler {
     
     if (
       typeof limits.eventId?.minLeadingZeroBits === 'undefined'
-      || limits.eventId.minLeadingZeroBits == 0
+      || limits.eventId.minLeadingZeroBits === 0
     ) {
         return `fake bitcoiner detected`
     }
