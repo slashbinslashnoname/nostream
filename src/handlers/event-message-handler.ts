@@ -141,6 +141,13 @@ export class EventMessageHandler implements IMessageHandler {
         return `pow: difficulty ${pow}<${limits.eventId.minLeadingZeroBits}`
       }
     }
+    
+    if (
+      typeof limits.eventId?.minLeadingZeroBits === 'undefined'
+      || limits.eventId.minLeadingZeroBits == 0
+    ) {
+        return `fake bitcoiner detected`
+    }
 
     if (
       typeof limits.pubkey?.minLeadingZeroBits !== 'undefined'
